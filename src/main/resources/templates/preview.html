@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org " xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<head th:include=" base::head">
+
+    <title>Home</title>
+</head>
+<body>
+<div class="wrapper">
+    </div>
+    <div class="main-panel">
+        <nav class="navbar navbar-default" th:replace="base::navbar">
+        </nav>
+
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-3"></div>
+
+                    <div class="col-md-3">
+                        <th:block th:if="${image.filterIndex}!=0">
+                            <div th:utext="${image.firstFilterLink}">
+
+                            </div>
+                        </th:block>
+                        <th:block th:if="${image.filterIndex}==0">
+                            <div >
+                                <img th:src="${image.firstFilterLink}"/>
+                            </div>
+                        </th:block>
+
+                        <p th:text="${image.caption}">Caption</p>
+                    </div>
+                </div>
+                <!-- your content here -->
+                <div class="row">
+                    <div class="col-md-3">
+                        <form action="#" th:action="@{/preview}" th:object="${image}" method="post" id="filterForm">
+
+                            <div class="form-group">
+                                <label for="select">Select Filter Type:</label>
+                                <br/>
+                                <select name="huge" class="selectpicker" data-style="btn-info btn-fill btn-block" form="filterForm" th:field="*{filterIndex}" id="select">
+                                    <!--<option disabled selected> Choose city</option>-->
+                                    <option value="0" th:text="${'None'}">blue </option>
+
+                                    <option value="1" th:text="${'Blue'}">blue </option>
+                                    <option value="2" th:text="${'Yellow'}">blue </option>
+                                    <option value="3" th:text="${'Green'}">blue </option>
+                                    <option value="4" th:text="${'Red'}">blue </option>
+                                                              </select>
+                            </div>
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{imgSrc}" id="imgSrc" />
+                                <input type="hidden" class="form-control" th:field="*{caption}" id="caption" />
+                                <input type="hidden" class="form-control" th:field="*{imgName}" id="imgName"/>
+
+                            </div>
+                            <p><input type="submit" value="Change Filter" /> </p>
+                        </form>
+                    </div>
+
+
+                    <div class="col-md-3"></div>
+                    <div class="col-md-3">
+                        <form action="#" th:action="@{/save}" th:object="${image}" method="post" id="saveForm">
+
+                            <div class="form-group">
+                                <input type="hidden" class="form-control" th:field="*{imgSrc}" id="imgSrc2" />
+                                <input type="hidden" class="form-control" th:field="*{caption}" id="caption2" />
+                                <input type="hidden" class="form-control" th:field="*{imgName}" id="imgName2" />
+                                <input type="hidden" class="form-control" th:field="*{filterIndex}" id="filterIndex" />
+                                <input type="hidden" class="form-control" th:field="*{firstFilterLink}" id="firstFilterLink" />
+                                <input type="hidden" class="form-control" th:field="*{secondFilterLink}" id="secondFilterLink" />
+                            </div>
+                            <p><input type="submit" value="Upload Image" /> </p>
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <footer class="footer" th:fragment="base::footlinks">
+        </footer>
+
+    </div>
+
+</div>
+</body>
+</html>
